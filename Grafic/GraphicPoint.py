@@ -16,7 +16,10 @@ class GraphicPoint:
         return float(self.y)
 
     def __str__(self):
-        return "X = " + str(self.x) + ";Y = " + str(self.y)
+        return "X = " + str(self.x) + " Y = " + str(self.y)
+
+    def __repr__(self):
+        return "X = " + str(self.x) + " Y = " + str(self.y)
 
     def __lt__(self, other):
         if other.getY() < self.y:

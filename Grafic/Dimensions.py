@@ -13,5 +13,5 @@ class Dimensions:
         self.minYValue = 0
         self.yFactor = 1
         self.graphPadding = 10
-        self.labelsSpace = 35
+        self.labelsSpace = 50
         self.vertivalUnits = 0

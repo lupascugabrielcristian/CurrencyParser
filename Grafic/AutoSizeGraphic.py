@@ -18,6 +18,9 @@ class AutoGraphic:
         self.createAutoSizeGraphic(points)
 
     def createAutoSizeGraphic(self, listOfPoints):
+        if len(listOfPoints) == 0 or listOfPoints is None:
+            return
+
         dimensions = AutoCanvasCalculator().createCanvasDimensions(listOfPoints)
         dimensions = CadranCalculator(dimensions).calculate()
         dimensions = UnitCalculator(dimensions, listOfPoints).calculateYUnitSize()

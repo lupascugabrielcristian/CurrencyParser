@@ -7,13 +7,13 @@ class GridMaker:
         self.canvas = canvas
 
     def makeGrid(self):
-        LABEL_OFFSET = -22
+        LABEL_OFFSET = -30
         dimensions = self.dimensions
         gridInterval = dimensions.yGraphSize / 10
 
         # First line
         currentGridPosition = dimensions.yOrigin - gridInterval
-        valStr = "%0.3f" % dimensions.minYValue
+        valStr = "%0.4f" % dimensions.minYValue
         text = self.canvas.create_text(dimensions.xOrigin + LABEL_OFFSET, dimensions.yOrigin)
         self.canvas.insert(text, 12, valStr)
 
@@ -25,6 +25,6 @@ class GridMaker:
             self.canvas.create_line(x1, y, x2, y, fill="grey", dash=(5, 4))
 
             val = UnitConverter(dimensions).convertFromYDistance(dimensions.yOrigin - y)
-            valStr = "%0.3f" % val
+            valStr = "%0.4f" % val
             text = self.canvas.create_text(x1 + LABEL_OFFSET, y)
             self.canvas.insert(text, 12, valStr)
