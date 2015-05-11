@@ -1,9 +1,9 @@
 import tkinter
+
 from Grafic.AutoConvas import AutoCanvasCalculator
 from Grafic.CadranCalculator import CadranCalculator
 from Grafic.GridMaker import GridMaker
 from Grafic.UnitCalculator import UnitCalculator
-from Grafic.UnitConverter import UnitConverter
 from Grafic.ValuesMarker import ValuesMarker
 
 

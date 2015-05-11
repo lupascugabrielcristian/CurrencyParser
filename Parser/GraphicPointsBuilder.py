@@ -1,6 +1,5 @@
 from Grafic.GraphicPoint import GraphicPoint
 
-
 class GraphicPointsBuilder:
 
     def __init__(self, listOfCurrencies):

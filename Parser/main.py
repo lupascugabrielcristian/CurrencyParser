@@ -1,10 +1,4 @@
-import sched
-import time
-from Grafic.AutoSizeGraphic import AutoGraphic
-from Parser.GraphicPointsBuilder import GraphicPointsBuilder
 from Parser.InfoDesigner import InfoDesigner
-
-from Parser.Method_2_Parser import Method_2_Parser
 
 
 designer = InfoDesigner()

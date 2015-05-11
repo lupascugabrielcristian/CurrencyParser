@@ -1,7 +1,6 @@
 from bs4 import BeautifulSoup
 import requests
-import urllib3
-from Grafic.GraphicPoint import GraphicPoint
+
 from Parser.Currency import Currency
 
 

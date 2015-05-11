@@ -14,7 +14,7 @@ class InfoDesigner:
         self.selectedCurrency = []
 
 
-    def main(self):
+    def repeatFunction(self):
         allCurrencies = Method_2_Parser().parse()
         currentCurrency = allCurrencies[self.currency_index]
         self.selectedCurrency.append(currentCurrency)
@@ -27,7 +27,7 @@ class InfoDesigner:
         s = sched.scheduler(time.time, time.sleep)
 
         for i in range(5):
-            s.enter(self.interval, self.repeats, self.main, ())
+            s.enter(self.interval, self.repeats, self.repeatFunction, ())
             s.run()
 
         points = GraphicPointsBuilder(self.selectedCurrency).build()
