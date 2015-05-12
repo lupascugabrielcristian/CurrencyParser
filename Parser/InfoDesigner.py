@@ -18,9 +18,7 @@ class InfoDesigner:
         allCurrencies = Method_2_Parser().parse()
         currentCurrency = allCurrencies[self.currency_index]
         self.selectedCurrency.append(currentCurrency)
-        print(currentCurrency)
-
-
+        print(currentCurrency) # LOG
 
 
     def run(self):
@@ -31,5 +29,5 @@ class InfoDesigner:
             s.run()
 
         points = GraphicPointsBuilder(self.selectedCurrency).build()
-        print(points)
+        print(points) # LOG
         AutoGraphic(points)

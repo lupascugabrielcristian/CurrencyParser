@@ -46,7 +46,6 @@ class Method_2_Parser:
 
     def parse(self):
         listOfCurrencies = self.findInPage()
-        print("Currencies: " + str(listOfCurrencies))
         return listOfCurrencies
 
     def trygetname(self, tdelement):
