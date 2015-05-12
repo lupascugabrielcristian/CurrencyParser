@@ -24,7 +24,7 @@ class InfoDesigner:
     def run(self):
         s = sched.scheduler(time.time, time.sleep)
 
-        for i in range(5):
+        for i in range(self.repeats):
             s.enter(self.interval, self.repeats, self.repeatFunction, ())
             s.run()
 
