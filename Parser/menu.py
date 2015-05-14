@@ -1,6 +1,8 @@
 import sys
+
 sys.path.extend(['/home/gabriel/Materiale/Studiu/Proiecte personale/Python/project_currency'])
 
+from Parser.VariationFinder import VariationFinder
 from Parser.AllCurrenciesList import AllCurrencyList
 from Parser.OneCurrency import OneCurrency
 
@@ -27,7 +29,7 @@ while answer != 5:
         AllCurrencyList().filter()
 
     if answer == 4:
-        print("Not implemented")
+        VariationFinder().findMaxVariation()
 
     if answer == 5:
         break

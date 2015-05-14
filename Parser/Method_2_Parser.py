@@ -9,10 +9,6 @@ class Method_2_Parser:
     # Sa parsez si pagina asta "http://www.fxstreet.com/rates-charts/currency-rates/"
     # pentru live currency
 
-    def _init_(self):
-        self.test = "tst"
-
-
     def findInPage(self):
         address = "http://www.fxstreet.com/rates-charts/currency-rates/"
         webpage = requests.get(address)
@@ -41,6 +37,7 @@ class Method_2_Parser:
                     value = 0
                     name = ""
 
+        print("Ce vreau: " + str(currencies))
         return currencies
 
 
