@@ -1,5 +1,6 @@
 from bs4 import BeautifulSoup
 import requests
+from Parser.Currency import Currency
 
 
 class AllCurrencyParser:
@@ -19,6 +20,7 @@ class AllCurrencyParser:
 
         currencies = []
         for el in table.find_all_next("tr"):
+            value = 0
             name = ""
             for td in el.find_all_next("td"):
                 parsedname = self.trygetname(td)
@@ -26,11 +28,21 @@ class AllCurrencyParser:
                 if parsedname != "":
                     name = parsedname
 
-                if name != "":
+                parsedvalue = self.trygetvalue(td)
+                if parsedvalue > 0:
+                    value = parsedvalue
+
+                if value > 0 and name != "":
                     currencies.append(name)
+                    value = 0
                     name = ""
 
         return currencies
+
+
+    def parse(self):
+        listOfCurrencies = self.findInPage()
+        return listOfCurrencies
 
     def trygetname(self, tdelement):
         name = ""
@@ -45,3 +57,18 @@ class AllCurrencyParser:
             name = ""
 
         return name
+
+    def trygetvalue(self, tdelement):
+        value = 0
+        try:
+             if tdelement['id'] is not None:
+                idstring  = tdelement['id']
+                if "last" in idstring:
+                    value = float(tdelement.get_text())
+        except TypeError:
+            value = -1
+
+        except KeyError:
+            value = -1
+
+        return value
