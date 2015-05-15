@@ -2,8 +2,9 @@ from Parser.InfoDesigner import InfoDesigner
 
 class OneCurrency:
 
-    def __init__(self):
-        self.designer = InfoDesigner()
+    def __init__(self, debugflag):
+        self.debugflag = debugflag
+        self.designer = InfoDesigner(debugflag)
 
     def run(self):
         delay = int( input("Time between reads: "))

@@ -6,8 +6,8 @@ from Parser.Currency import Currency
 
 class Method_2_Parser:
 
-    # Sa parsez si pagina asta "http://www.fxstreet.com/rates-charts/currency-rates/"
-    # pentru live currency
+    def __init__(self, debugflag):
+        self.debugflag = debugflag
 
     def findInPage(self):
         address = "http://www.fxstreet.com/rates-charts/currency-rates/"
@@ -37,7 +37,6 @@ class Method_2_Parser:
                     value = 0
                     name = ""
 
-        print("Ce vreau: " + str(currencies))
         return currencies
 
 

@@ -4,8 +4,9 @@ from Parser.Method_2_Parser import Method_2_Parser
 
 class VariationFinder:
 
-    def __init__(self):
+    def __init__(self, debugFlag):
         self.parser = Method_2_Parser()
+        self.debugflag = debugFlag
 
     def findMaxVariation(self):
         repeats = int(input("Number of repeats: "))
@@ -29,7 +30,15 @@ class VariationFinder:
 
         for i in range(0, numberOfCurrencies):
             currencyValues = self.getCurrencyValueAllReadings(listOfReadings, i)
+
+            if self.debugflag:
+                print(str(listOfReadings[0][i].name) + ": " + str(currencyValues))
+
             thisCurrencyVariation = self.calculateVariationForCurrency(currencyValues)
+
+            if self.debugflag:
+                print("Variation: " + str(thisCurrencyVariation))
+
             if thisCurrencyVariation > variation:
                 variation = thisCurrencyVariation
                 indexFoundCurrency = i
@@ -43,7 +52,8 @@ class VariationFinder:
         numberOfReadings = len(listOfReadings)
 
         for i in range(0, numberOfReadings):
-            currencyValues.append(listOfReadings[i][indexOfCurrency].value)
+            value = listOfReadings[i][indexOfCurrency].value
+            currencyValues.append(value)
 
         return currencyValues
 
@@ -51,7 +61,11 @@ class VariationFinder:
         variation = 0
 
         for i in range(0, len(currencyValues) - 1):
-            thisVariation = currencyValues[i + 1] - currencyValues[i]
+            thisVariation = abs(currencyValues[i + 1] - currencyValues[i])
+
+            if self.debugflag:
+                print("Local variation: " + str(thisVariation))
+
             if thisVariation > variation:
                 variation = thisVariation
 
