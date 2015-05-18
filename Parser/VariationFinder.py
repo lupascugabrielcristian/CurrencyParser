@@ -5,7 +5,7 @@ from Parser.Method_2_Parser import Method_2_Parser
 class VariationFinder:
 
     def __init__(self, debugFlag):
-        self.parser = Method_2_Parser()
+        self.parser = Method_2_Parser(debugFlag)
         self.debugflag = debugFlag
 
     def findMaxVariation(self):
@@ -15,6 +15,7 @@ class VariationFinder:
         listOfReadings = []
         for index in range(0, repeats):
             listOfReadings.append(self.parser.findInPage())
+            print("Reading no " + str(index))
             time.sleep(delay)
 
         indexFound = self.processReadings(listOfReadings)
