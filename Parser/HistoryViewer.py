@@ -40,7 +40,7 @@ class HistoryViewer:
 
         for index in range(0, len(self.historyObjects)):
             try:
-                print(str(index) + ". " + self.historyObjects[index].name + " over " + str(self.historyObjects[index].timespan) + " seconds")
+                print(str(index) + ". " + str(self.historyObjects[index]))
             except AttributeError:
                 print(str(index) + ". " + self.historyObjects[index].name)
 
@@ -49,7 +49,10 @@ class HistoryViewer:
 
 
     def displayOne(self):
-        print (self.historyObjects[self.indexChosen])
+        try:
+            print (self.historyObjects[self.indexChosen])
+        except AttributeError:
+            print("===> " + str(self.indexChosen) + ". " + self.historyObjects[self.indexChosen].name + " <=====")
         AutoGraphic(self.historyObjects[self.indexChosen].points)
 
 
@@ -68,7 +71,7 @@ class HistoryViewer:
 
         for index in range(0, len(self.historyObjects)):
             try:
-                print(str(index) + ". " + self.historyObjects[index].name + " over " + str(self.historyObjects[index].timespan) + " seconds")
+                print(str(index) + ". " + str(self.historyObjects[index]))
             except AttributeError:
                 print(str(index) + ". " + self.historyObjects[index].name)
 

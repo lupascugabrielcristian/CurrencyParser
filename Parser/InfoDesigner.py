@@ -47,6 +47,7 @@ class InfoDesigner:
 
         historyobject = HistoryObject(self.currency_name, points)
         historyobject.timespan = timespan
+        historyobject.interval = self.interval
         pickle.dump(historyobject, outputFile)
 
         outputFile.close()
