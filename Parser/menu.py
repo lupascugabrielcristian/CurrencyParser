@@ -46,7 +46,7 @@ while answer != 7:
         debugflag = False
 
     if answer == 8:
-        HistoryViewer(debugflag).view()
+        HistoryViewer(debugflag).askforOption()
 
 
 print("By by")
