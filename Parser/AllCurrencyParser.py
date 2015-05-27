@@ -23,8 +23,8 @@ class AllCurrencyParser:
             value = 0
             name = ""
             for td in el.find_all_next("td"):
-                parsedname = self.trygetname(td)
 
+                parsedname = self.trygetname(td)
                 if parsedname != "":
                     name = parsedname
 
@@ -38,11 +38,6 @@ class AllCurrencyParser:
                     name = ""
 
         return currencies
-
-
-    def parse(self):
-        listOfCurrencies = self.findInPage()
-        return listOfCurrencies
 
     def trygetname(self, tdelement):
         name = ""

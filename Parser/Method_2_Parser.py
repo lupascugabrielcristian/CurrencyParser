@@ -9,6 +9,10 @@ class Method_2_Parser:
     def __init__(self, debugflag):
         self.debugflag = debugflag
 
+    def parse(self):
+        listOfCurrencies = self.findInPage()
+        return listOfCurrencies
+
     def findInPage(self):
         address = "http://www.fxstreet.com/rates-charts/currency-rates/"
         webpage = requests.get(address)
@@ -38,11 +42,6 @@ class Method_2_Parser:
                     name = ""
 
         return currencies
-
-
-    def parse(self):
-        listOfCurrencies = self.findInPage()
-        return listOfCurrencies
 
     def trygetname(self, tdelement):
         name = ""

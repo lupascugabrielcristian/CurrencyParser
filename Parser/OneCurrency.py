@@ -18,3 +18,11 @@ class OneCurrency:
 
         self.designer.run()
 
+
+    def runwiththisparameters(self, delay, currencyIndex, repeats):
+        self.designer.currency_index = currencyIndex
+        self.designer.repeats = repeats
+        self.designer.interval = delay
+
+        self.designer.run()
+

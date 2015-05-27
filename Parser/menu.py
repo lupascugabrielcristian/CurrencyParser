@@ -2,6 +2,7 @@ import sys
 
 sys.path.extend(['/home/gabriel/Materiale/Studiu/Proiecte personale/Python/project_currency'])
 
+from Trading.InvestmentManager import InvestmentManger
 from Trading.DataReaderWriter import DataReaderWriter
 from Trading.Money import Money
 from Trading.Portofolio import Portofolio
@@ -68,6 +69,10 @@ while answer != 7:
     if answer == 9:
         portofolio = initializePortofolio()
         PortofolioViewer(portofolio).view()
+
+    if answer == 10:
+        portofolio = initializePortofolio()
+        InvestmentManger(debugflag).makeInvestment()
 
 
 print("By by")

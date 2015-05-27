@@ -23,3 +23,10 @@ class AllCurrencyList:
 
         if results == 0:
             print("No entry found!")
+
+    def getIndexOfCurrency(self, currencyName):
+        allCurrencies = self.parser.parse()
+
+        for index in range(0, len(allCurrencies)):
+            if currencyName in str(allCurrencies[index]):
+                return index
