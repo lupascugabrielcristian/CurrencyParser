@@ -2,12 +2,13 @@ import sys
 
 sys.path.extend(['/home/gabriel/Materiale/Studiu/Proiecte personale/Python/project_currency'])
 
+from Trading.InvestmentsMonitor import InvestmentMonitor
+from Viewers.HistoryViewer import HistoryViewer
 from Trading.InvestmentManager import InvestmentManger
 from Trading.DataReaderWriter import DataReaderWriter
 from Trading.Money import Money
 from Trading.Portofolio import Portofolio
 from Viewers.PortofoloiViewer import PortofolioViewer
-from Viewers import HistoryViewer
 from Parser.VariationFinder import VariationFinder
 from Parser.AllCurrenciesList import AllCurrencyList
 from Parser.OneCurrency import OneCurrency
@@ -18,8 +19,8 @@ def initializePortofolio():
     myPortofolio = reader.getPortofolio()
     if myPortofolio is None:
         myPortofolio = Portofolio()
-        myPortofolio.add("USD", 10000)
-        myPortofolio.addMoney(Money())
+        myPortofolio.addMoney("USD", 10000)
+        myPortofolio.addCurrency(Money())
         reader.savePorofolio(myPortofolio)
 
     return myPortofolio
@@ -37,6 +38,7 @@ while answer != 7:
     print("8. See history file")
     print("9. Portofolio")
     print("10. Make an investment")
+    print("11. Monitor")
     print("5. Debug ON")
     print("6. Debug OFF")
     print("7. Exit")
@@ -72,7 +74,11 @@ while answer != 7:
 
     if answer == 10:
         portofolio = initializePortofolio()
-        InvestmentManger(debugflag).makeInvestment()
+        InvestmentManger(debugflag, portofolio).makeInvestment()
+
+    if answer == 11:
+        portofolio = initializePortofolio()
+        InvestmentMonitor(portofolio, debugflag).monitor()
 
 
 print("By by")

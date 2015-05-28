@@ -35,3 +35,6 @@ class Investment:
         print("||Final price: " + str(self.endPrice))
         print ("==========================") # log
 
+    def __repr__(self):
+        return self.name + " Initial price: "  + str(self.initialPrice)
+
