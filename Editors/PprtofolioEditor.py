@@ -27,7 +27,8 @@ class PortofolioEditor:
         for index in range(len(self.portofolio.investments)):
             print("{}. {}".format(index, self.portofolio.investments[index]))
 
-        print("To delete money write: m[index]. To delete investment write i[index]. To exit write e:")
+        print("To delete money write: m[index]. To delete investment write i[index]. "
+              "To sell an investment: s[index]. To exit write e:")
         userinput = input("=>")
         return userinput
 
@@ -41,21 +42,37 @@ class PortofolioEditor:
             self.exitFlag = True
             return
         elif userinput[0] == 'm':
-            index = int(userinput[1:])
-            try:
-                self.portofolio.currentBalance.pop(index)
-                DataReaderWriter().savePorofolio(self.portofolio)
-                print("Money at index " + str(index) + " was removed")
-            except IndexError:
-                print("Wrong index")
+            self.removeMoney(userinput)
         elif userinput[0] == 'i':
-            index = int(userinput[1:])
-            try:
-                self.portofolio.investments.pop(index)
-                DataReaderWriter().savePorofolio(self.portofolio)
-                print("Investment at index " + str(index) + " was removed")
-            except IndexError:
-                print("Wrong index")
+            self.removeInvestment(userinput)
+        elif userinput[0] == 's':
+            self.sellInvestment(userinput)
 
 
+    def removeMoney(self, userinput):
+        index = int(userinput[1:])
+        try:
+            self.portofolio.currentBalance.pop(index)
+            DataReaderWriter().savePorofolio(self.portofolio)
+            print("Money at index " + str(index) + " was removed")
+        except IndexError:
+            print("Wrong command")
+
+    def removeInvestment(self, userinput):
+        index = int(userinput[1:])
+        try:
+            self.portofolio.investments.pop(index)
+            DataReaderWriter().savePorofolio(self.portofolio)
+            print("Investment at index " + str(index) + " was removed")
+        except IndexError:
+            print("Wrong command")
+
+    def sellInvestment(self, userinput):
+        index = int(userinput[1:])
+        try:
+            self.portofolio.investments[index].endTransaction()
+            DataReaderWriter().savePorofolio(self.portofolio)
+            print("Investment at index " + str(index) + " was sold")
+        except IndexError:
+            print("Wrong command")
 

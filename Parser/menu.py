@@ -27,6 +27,7 @@ def initializePortofolio():
         reader.savePorofolio(myPortofolio)
     else:
         myPortofolio.cleanup()
+        myPortofolio.startWatch()
 
     return myPortofolio
 

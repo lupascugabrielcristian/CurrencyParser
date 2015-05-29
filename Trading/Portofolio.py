@@ -1,3 +1,4 @@
+import threading
 import time
 from Trading.DataReaderWriter import DataReaderWriter
 from Trading.Money import Money
@@ -37,3 +38,17 @@ class Portofolio:
             self.investments.remove(investment)
 
         DataReaderWriter().savePorofolio(self)
+
+    def startWatch(self):
+        for investment in self.investments:
+            self.startIfOpen(investment)
+
+    def startIfOpen(self, investment):
+        if investment.open:
+            remainingduration = investment.getRemainingDuration()
+            threading.Thread(target=self.closeInvestmentAfter, args=(investment, remainingduration, )).start()
+
+
+    def closeInvestmentAfter(self, investment, duration):
+        time.sleep(duration)
+        investment.endTransaction()

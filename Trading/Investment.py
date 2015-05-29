@@ -41,6 +41,9 @@ class Investment:
         print("||Final price: " + str(self.endPrice))
         print("==========================") # log
 
+    def getRemainingDuration(self):
+        return self.endTime - int(round(time.time()))
+
     def __repr__(self):
         if self.open:
             open = "OPEN"
