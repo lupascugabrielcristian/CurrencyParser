@@ -1,4 +1,5 @@
 import sys
+from Editors.PprtofolioEditor import PortofolioEditor
 
 sys.path.extend(['/home/gabriel/Materiale/Studiu/Proiecte personale/Python/project_currency'])
 
@@ -40,7 +41,8 @@ while answer != 7:
     print("3. Find a currency")
     print("4. Find greatest change")
     print("8. See history file")
-    print("9. Portofolio")
+    print("9. View Portofolio")
+    print("12. Edit Portofolio")
     print("10. Make an investment")
     print("11. Monitor")
     print("5. Debug ON")
@@ -79,6 +81,10 @@ while answer != 7:
     if answer == 9:
         portofolio = initializePortofolio()
         PortofolioViewer(portofolio).view()
+
+    if answer == 12:
+        portofolio = initializePortofolio()
+        PortofolioEditor(portofolio, debugflag).edit()
 
     if answer == 10:
         portofolio = initializePortofolio()
