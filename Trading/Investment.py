@@ -35,11 +35,11 @@ class Investment:
         delta = self.endPrice - self.initialPrice
         profit = delta * self.units * 1000
         self.profit = round(profit, 2)
-        print ("\n==========================") # log
-        print ("||Profit: " + str(self.profit))
+        print("\n==========================") # log
+        print("||Profit: " + str(self.profit))
         print("||Initial price: " + str(self.initialPrice))
         print("||Final price: " + str(self.endPrice))
-        print ("==========================") # log
+        print("==========================") # log
 
     def __repr__(self):
         if self.open:
@@ -54,6 +54,21 @@ class Investment:
             overtime = "EXCEEDED"
         else: overtime = "PENDING"
 
-
         reprs = "{} {} Initial price: {}, {}; time: {}".format(self.name, open, self.initialPrice, endValue, overtime)
         return reprs
+
+    def __str__(self):
+        if self.open:
+            open = "OPEN"
+        else: open = "CLOSE"
+
+        if self.endPrice != 0:
+            endValue = "End Price: " + str(self.endPrice)
+        else: endValue = ""
+
+        if int(round(time.time())) > self.endTime:
+            overtime = "EXCEEDED"
+        else: overtime = "PENDING"
+
+        text = "{} {} Initial price: {}, {}; time: {}".format(self.name, open, self.initialPrice, endValue, overtime)
+        return text

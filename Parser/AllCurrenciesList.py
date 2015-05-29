@@ -9,7 +9,8 @@ class AllCurrencyList:
         allCurrencies = self.parser.parse()
 
         for index in range(0, len(allCurrencies)):
-            print(str(index) + ". " + str(allCurrencies[index]))
+            text  = str(index) + ". " + str(allCurrencies[index])
+            print(text)
 
     def filter(self):
         currency = input("What currency to look for?")
@@ -18,7 +19,8 @@ class AllCurrencyList:
 
         for index in range(0, len(allCurrencies)):
             if currency in str(allCurrencies[index]):
-                print(str(index) + ". " + str(allCurrencies[index]))
+                text  = str(index) + ". " + str(allCurrencies[index])
+                print(text)
                 results += 1
 
         if results == 0:

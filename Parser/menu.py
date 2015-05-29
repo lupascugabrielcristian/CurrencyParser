@@ -2,6 +2,7 @@ import sys
 
 sys.path.extend(['/home/gabriel/Materiale/Studiu/Proiecte personale/Python/project_currency'])
 
+from UserInterface.MenuInterface import MenuInterface
 from Trading.InvestmentsMonitor import InvestmentMonitor
 from Viewers.HistoryViewer import HistoryViewer
 from Trading.InvestmentManager import InvestmentManger
@@ -12,6 +13,7 @@ from Viewers.PortofoloiViewer import PortofolioViewer
 from Parser.VariationFinder import VariationFinder
 from Parser.AllCurrenciesList import AllCurrencyList
 from Parser.OneCurrency import OneCurrency
+
 
 
 def initializePortofolio():
@@ -51,10 +53,14 @@ while answer != 7:
         OneCurrency(debugflag).run()
 
     if answer == 2:
+        interface = MenuInterface(debugflag)
         AllCurrencyList().run()
+        interface.destroy()
 
     if answer == 3:
+        interface = MenuInterface(debugflag)
         AllCurrencyList().filter()
+        interface.destroy()
 
     if answer == 4:
         VariationFinder(debugflag).findMaxVariation()

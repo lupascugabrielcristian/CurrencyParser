@@ -59,6 +59,7 @@ class InvestmentMonitor:
                 print("Current value = {}, {}, {}".format(currentValue, status, mediumStatus))
 
 
+
     def initializePreviousVectorValues(self):
         for index in range(len(self.portofolio.investments)):
             self.previousValues.append(0)
