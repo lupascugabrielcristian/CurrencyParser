@@ -1,7 +1,6 @@
-from concurrent.futures import thread
-import sched
 import threading
 import time
+
 from Parser.AllCurrenciesList import AllCurrencyList
 from Parser.Currency import Currency
 from Parser.OneCurrency import OneCurrency
@@ -39,11 +38,8 @@ class InvestmentManger:
         self.investments.append(newInvestment)
         print("Investment added") #log
 
-        self.runTransation(newInvestment)
         myThread = threading.Thread(target=self.runTransation, args=(newInvestment,))
         myThread.start()
-
-
 
 
     @staticmethod

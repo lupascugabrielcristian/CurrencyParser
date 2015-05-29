@@ -14,7 +14,7 @@ class Currency:
         self.value = value
 
     def __str__(self):
-        return "Name: " + str(self.name) + " Value=" + str(self.value)
+        return "Name: {} Value = {}".format(self.name, self.value)
 
     def __repr__(self):
-        return "Name: " + str(self.name) + " Value=" + str(self.value)
+        return "Name: {} Value = {}".format(self.name, self.value)

@@ -1,3 +1,5 @@
+import time
+from Trading.DataReaderWriter import DataReaderWriter
 from Trading.Money import Money
 
 
@@ -20,3 +22,18 @@ class Portofolio:
 
     def addInvestment(self, investment):
         self.investments.append(investment)
+
+    def cleanup(self):
+        for investment in self.investments:
+            if investment.endTime < int(round(time.time())) and investment.open:
+                investment.endTransaction()
+
+        toRemove = []
+        for investment in self.investments:
+            if not investment.open:
+                toRemove.append(investment)
+
+        for investment in toRemove:
+            self.investments.remove(investment)
+
+        DataReaderWriter().savePorofolio(self)

@@ -22,6 +22,8 @@ def initializePortofolio():
         myPortofolio.addMoney("USD", 10000)
         myPortofolio.addCurrency(Money())
         reader.savePorofolio(myPortofolio)
+    else:
+        myPortofolio.cleanup()
 
     return myPortofolio
 
@@ -78,7 +80,7 @@ while answer != 7:
 
     if answer == 11:
         portofolio = initializePortofolio()
-        InvestmentMonitor(portofolio, debugflag).monitor()
+        InvestmentMonitor(debugflag, portofolio).monitor()
 
 
 print("By by")

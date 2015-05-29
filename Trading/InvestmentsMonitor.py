@@ -1,5 +1,6 @@
-import signal
-from pip.backwardcompat import raw_input
+import threading
+from time import sleep
+
 from Parser.ValueParser import ValueParser
 
 
@@ -9,10 +10,16 @@ class InvestmentMonitor:
         self.portofolio = portofolio
         self.parser = ValueParser(debugflag)
 
-
     def monitor(self):
-        print("Press any key to stop")
-        self.input_or_timeout(5)
+        print("Monitoring")
+        while True:
+            end = input("stop to end monitoring: ")
+            if "stop" in end:
+                break
+            myThread = threading.Thread(target=self.getCurrentValuesForInvestments(), args=())
+            myThread.start()
+            sleep(10)
+        print("Monitoring is stoped")
 
 
     def getCurrentValuesForInvestments(self):
@@ -27,17 +34,6 @@ class InvestmentMonitor:
                     status = "DOWN"
                 else: status = "SAME"
 
-                print(investment + " Current value = " + str(currentValue) + ", " + status)
+                print(investment)
+                print("Current value = " + str(currentValue) + ", " + status)
 
-    def input_or_timeout(self, timeout):
-        while True:
-            def nothing():
-                self.getCurrentValuesForInvestments()
-            signal.signal(signal.SIGALRM, nothing)
-            signal.alarm(timeout)
-            try:
-                userinput = raw_input()
-                if userinput is not None:
-                    break
-                signal.alarm(0)
-            except (IOError, EOFError): pass
