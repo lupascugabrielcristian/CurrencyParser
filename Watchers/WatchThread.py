@@ -5,3 +5,6 @@ class WatchThread:
 
     def start(self):
         self.thread.start()
+
+    def stop(self):
+        self.thread._stop.set()

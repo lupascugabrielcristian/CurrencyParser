@@ -28,3 +28,9 @@ class WatchersManager:
         for watcher in self.watchers:
             if watcher.investment == investment:
                 return watcher
+
+    def empty(self):
+        for watcher in self.watchers:
+            watcher.stop()
+
+        self.watchers.clear()

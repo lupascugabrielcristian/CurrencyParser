@@ -13,7 +13,7 @@ class Analyzer:
         while 1:
             sleep(5)
             value = self.parser.getOnlineValueForCurrencyIndex(self.investment.onlineindex)
-            print(self.investment.name + "Current value: " + str(value))
+            print('\n' + self.investment.name + "Current value: " + str(value))
 
             delta = abs(self.investment.initialPrice - value)
             if delta > 0.005:
