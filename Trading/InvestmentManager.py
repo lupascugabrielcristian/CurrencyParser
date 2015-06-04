@@ -5,8 +5,11 @@ from Parser.AllCurrenciesList import AllCurrencyList
 from Parser.Currency import Currency
 from Parser.OneCurrency import OneCurrency
 from Parser.ValueParser import ValueParser
+from Trading.Analyzer import Analyzer
 from Trading.DataReaderWriter import DataReaderWriter
 from Trading.Investment import Investment
+from Watchers.WatchThread import WatchThread
+from Watchers.WatchersManager import WatchersManager
 
 
 class InvestmentManger:
@@ -16,8 +19,9 @@ class InvestmentManger:
         self.investments = []
         self.portofolio = portofolio
         self.debugflag = debugflag
-        self.parser = ValueParser(debugflag)
         self.endTransactionPending = []
+        self.parser = ValueParser(debugflag)
+        self.watchersManager = WatchersManager(debugflag)
 
     def makeInvestment(self):
         currencyName = input("Buy currency: ")
@@ -38,8 +42,8 @@ class InvestmentManger:
         self.investments.append(newInvestment)
         print("Investment added") #log
 
-        myThread = threading.Thread(target=self.runTransation, args=(newInvestment,))
-        myThread.start()
+        newThread = threading.Thread(target=self.runTransation, args=(newInvestment,))
+        self.watchersManager.addWatch(newInvestment, newThread)
 
 
     @staticmethod
@@ -59,13 +63,49 @@ class InvestmentManger:
 
     def endTransaction(self, investment):
         investment.endTransaction()
-        self.investments.remove(investment)
         self.portofolio.addCurrency(Currency(investment.name, investment.profit))
         DataReaderWriter().savePorofolio(self.portofolio)
-
-
 
     def __getOnlineData__(self, duration, currencyName):
         currencyIndex = self.__findIndexOfCurrency__(currencyName)
         repeats = int(duration / self.DELAY_BETWEEN_READS)
         OneCurrency(self.debugflag).runwiththisparameters(self.DELAY_BETWEEN_READS, currencyIndex, repeats)
+
+    def cleanup(self):
+        for investment in self.portofolio.investments:
+            if investment.endTime < int(round(time.time())) and investment.open:
+                self.endTransaction(investment)
+
+        toRemove = []
+        for investment in self.portofolio.investments:
+            if not investment.open:
+                toRemove.append(investment)
+
+        for investment in toRemove:
+            self.portofolio.investments.remove(investment)
+            print("Investment sold") #log
+
+        DataReaderWriter().savePorofolio(self.portofolio)
+
+    def startWatch(self):
+        for investment in self.portofolio.investments:
+            self.startIfOpen(investment)
+
+    def startIfOpen(self, investment):
+        if investment.open:
+            remainingduration = investment.getRemainingDuration()
+            # thread = threading.Thread(target=self.closeInvestmentAfter, args=(investment, remainingduration, ))
+            thread = threading.Thread(target=self.analize, args=(investment, ))
+            self.watchersManager.addWatch(investment, thread)
+
+
+    def closeInvestmentAfter(self, investment, duration):
+        time.sleep(duration)
+        self.endTransaction(investment)
+
+
+    def analize(self, investment):
+        print("Investment found open - watching...") # log
+        Analyzer(self.debugflag, investment).analyze()
+        self.endTransaction(investment)
+        print("Transaction ended because analyser") # log

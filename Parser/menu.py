@@ -1,8 +1,8 @@
 import sys
-from Editors.PprtofolioEditor import PortofolioEditor
 
 sys.path.extend(['/home/gabriel/Materiale/Studiu/Proiecte personale/Python/project_currency'])
 
+from Editors.PortofolioEditor import PortofolioEditor
 from UserInterface.MenuInterface import MenuInterface
 from Trading.InvestmentsMonitor import InvestmentMonitor
 from Viewers.HistoryViewer import HistoryViewer
@@ -16,7 +16,6 @@ from Parser.AllCurrenciesList import AllCurrencyList
 from Parser.OneCurrency import OneCurrency
 
 
-
 def initializePortofolio():
     reader = DataReaderWriter()
     myPortofolio = reader.getPortofolio()
@@ -25,14 +24,20 @@ def initializePortofolio():
         myPortofolio.addMoney("USD", 10000)
         myPortofolio.addCurrency(Money())
         reader.savePorofolio(myPortofolio)
-    else:
-        myPortofolio.cleanup()
-        myPortofolio.startWatch()
 
     return myPortofolio
 
+def prepareInvestmentManager():
+    manager = InvestmentManger(debugflag, portofolio)
+    manager.cleanup()
+    manager.startWatch()
+    return manager
+
 answer = 0
 debugflag = False
+
+portofolio = initializePortofolio()
+investmentManager = prepareInvestmentManager()
 
 while answer != 7:
     print("Menu")
@@ -51,6 +56,8 @@ while answer != 7:
     print("7. Exit")
 
     answer = int(input("Choose your answer:"))
+
+    investmentManager.cleanup()
 
     if answer == 1:
         OneCurrency(debugflag).run()
@@ -80,19 +87,15 @@ while answer != 7:
         HistoryViewer(debugflag).askforOption()
 
     if answer == 9:
-        portofolio = initializePortofolio()
         PortofolioViewer(portofolio).view()
 
     if answer == 12:
-        portofolio = initializePortofolio()
         PortofolioEditor(portofolio, debugflag).edit()
 
     if answer == 10:
-        portofolio = initializePortofolio()
-        InvestmentManger(debugflag, portofolio).makeInvestment()
+        investmentManager.makeInvestment()
 
     if answer == 11:
-        portofolio = initializePortofolio()
         InvestmentMonitor(debugflag, portofolio).monitor()
 
 

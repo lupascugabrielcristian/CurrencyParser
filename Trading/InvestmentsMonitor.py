@@ -13,6 +13,9 @@ class InvestmentMonitor:
         self.repeats = 0
 
     def monitor(self):
+        if len(self.portofolio.investments) == 0:
+            return
+
         print("Monitoring")
         self.initializePreviousVectorValues()
 

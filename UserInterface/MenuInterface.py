@@ -65,4 +65,4 @@ class MenuInterface(tk.Frame):
         else:
             myPortofolio.cleanup()
 
-        InvestmentMonitor(self.debugflag, myPortofolio, self).monitor()
+        InvestmentMonitor(self.debugflag, myPortofolio).monitor()
