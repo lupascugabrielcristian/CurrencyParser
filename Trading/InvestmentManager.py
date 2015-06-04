@@ -8,6 +8,7 @@ from Parser.ValueParser import ValueParser
 from Trading.Analyzer import Analyzer
 from Trading.DataReaderWriter import DataReaderWriter
 from Trading.Investment import Investment
+from Viewers.OutputViewer import OutputViewer
 from Watchers.WatchersManager import WatchersManager
 
 
@@ -21,6 +22,7 @@ class InvestmentManger:
         self.endTransactionPending = []
         self.parser = ValueParser(debugflag)
         self.watchersManager = WatchersManager(debugflag)
+        self.viewer = OutputViewer(debugflag)
 
     def makeInvestment(self):
         currencyName = input("Buy currency: ")
@@ -107,6 +109,6 @@ class InvestmentManger:
 
 
     def analize(self, investment):
-        Analyzer(self.debugflag, investment).analyze()
+        Analyzer(self.debugflag, investment, self.viewer).analyze()
         self.endTransaction(investment)
         print("Transaction ended because analyser")

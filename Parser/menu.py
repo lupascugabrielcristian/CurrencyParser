@@ -10,7 +10,7 @@ from Trading.InvestmentManager import InvestmentManger
 from Trading.DataReaderWriter import DataReaderWriter
 from Trading.Money import Money
 from Trading.Portofolio import Portofolio
-from Viewers.PortofoloiViewer import PortofolioViewer
+from Viewers.PortofolioViewer import PortofolioViewer
 from Parser.VariationFinder import VariationFinder
 from Parser.AllCurrenciesList import AllCurrencyList
 from Parser.OneCurrency import OneCurrency
