@@ -31,6 +31,7 @@ def prepareInvestmentManager():
     manager = InvestmentManger(debugflag, portofolio)
     manager.cleanup()
     manager.startWatch()
+    manager.testAnalyzer()
     return manager
 
 answer = 0
@@ -38,6 +39,7 @@ debugflag = False
 
 portofolio = initializePortofolio()
 investmentManager = prepareInvestmentManager()
+
 
 while answer != 7:
     print("Menu")
@@ -51,6 +53,7 @@ while answer != 7:
     print("12. Edit Portofolio")
     print("10. Make an investment")
     print("11. Monitor")
+    print("13. Test terminal")
     print("5. Debug ON")
     print("6. Debug OFF")
     print("7. Exit")

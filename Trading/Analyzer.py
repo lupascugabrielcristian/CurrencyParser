@@ -1,7 +1,6 @@
 from time import sleep
 from Parser.ValueParser import ValueParser
 
-
 class Analyzer:
 
     def __init__(self, debugflag, investment, viewer):
@@ -20,5 +19,5 @@ class Analyzer:
             delta = abs(self.investment.initialPrice - value)
             if delta > 0.005:
                 # print(str(delta)) # log
-                self.viewer(str(delta))
+                self.viewer.showText(str(delta))
                 return

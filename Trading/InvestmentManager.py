@@ -1,3 +1,4 @@
+import subprocess
 import threading
 import time
 
@@ -8,7 +9,6 @@ from Parser.ValueParser import ValueParser
 from Trading.Analyzer import Analyzer
 from Trading.DataReaderWriter import DataReaderWriter
 from Trading.Investment import Investment
-from Viewers.OutputViewer import OutputViewer
 from Watchers.WatchersManager import WatchersManager
 
 
@@ -22,7 +22,6 @@ class InvestmentManger:
         self.endTransactionPending = []
         self.parser = ValueParser(debugflag)
         self.watchersManager = WatchersManager(debugflag)
-        self.viewer = OutputViewer(debugflag)
 
     def makeInvestment(self):
         currencyName = input("Buy currency: ")
@@ -97,8 +96,6 @@ class InvestmentManger:
 
     def startIfOpen(self, investment):
         if investment.open:
-            # remainingduration = investment.getRemainingDuration()
-            # thread = threading.Thread(target=self.closeInvestmentAfter, args=(investment, remainingduration, ))
             thread = threading.Thread(target=self.analize, args=(investment, ))
             self.watchersManager.addWatch(investment, thread)
 
@@ -109,6 +106,10 @@ class InvestmentManger:
 
 
     def analize(self, investment):
-        Analyzer(self.debugflag, investment, self.viewer).analyze()
-        self.endTransaction(investment)
+        # Analyzer(self.debugflag, investment, self.viewer).analyze()
+        # self.endTransaction(investment)
         print("Transaction ended because analyser")
+
+    def testAnalyzer(self):
+        print("Start analyzing")
+        subprocess.Popen("gnome-terminal -x sh -c 'sh run_analyser.sh'", stdin=subprocess.PIPE, shell=True)
