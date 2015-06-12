@@ -1,12 +1,10 @@
-import subprocess
-import threading
 import time
 
 from Parser.AllCurrenciesList import AllCurrencyList
 from Parser.Currency import Currency
 from Parser.OneCurrency import OneCurrency
 from Parser.ValueParser import ValueParser
-from Trading.Analyzer import Analyzer
+from Trading.AnalyzeStarter import AnalyzeStarter
 from Trading.DataReaderWriter import DataReaderWriter
 from Trading.Investment import Investment
 from Watchers.WatchersManager import WatchersManager
@@ -40,10 +38,11 @@ class InvestmentManger:
         newInvestment.units = ammount
         newInvestment.duration = duration
         self.investments.append(newInvestment)
+        self.portofolio.addInvestment(newInvestment)
         print("Investment added") #log
 
-        newThread = threading.Thread(target=self.analize, args=(newInvestment,))
-        self.watchersManager.addWatch(newInvestment, newThread)
+        self.startTransaction(newInvestment)
+        self.startAnalyser(newInvestment)
 
 
     def cleanup(self):
@@ -96,8 +95,8 @@ class InvestmentManger:
 
     def startIfOpen(self, investment):
         if investment.open:
-            thread = threading.Thread(target=self.analize, args=(investment, ))
-            self.watchersManager.addWatch(investment, thread)
+            process = self.analize(investment)
+            self.watchersManager.addWatch(investment, process)
 
 
     def closeInvestmentAfter(self, investment, duration):
@@ -105,11 +104,13 @@ class InvestmentManger:
         self.endTransaction(investment)
 
 
-    def analize(self, investment):
-        # Analyzer(self.debugflag, investment, self.viewer).analyze()
-        # self.endTransaction(investment)
-        print("Transaction ended because analyser")
+    def startAnalyser(self, newInvestment):
+        print("Starting analyser")
+        self.analize(newInvestment)
 
-    def testAnalyzer(self):
-        print("Start analyzing")
-        subprocess.Popen("gnome-terminal -x sh -c 'sh run_analyser.sh'", stdin=subprocess.PIPE, shell=True)
+
+    def analize(self, investment):
+        process = AnalyzeStarter(self.debugflag, investment).analyze()
+        investment.endTransaction()
+        print("Transaction ended because analyser")
+        return process

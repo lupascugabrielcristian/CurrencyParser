@@ -1,0 +1,35 @@
+import subprocess
+
+from Parser.ValueParser import ValueParser
+
+
+class AnalyzeStarter:
+
+    def __init__(self, debugflag, investment):
+        self.debugflag = debugflag
+        self.investment = investment
+        self.parser = ValueParser(debugflag)
+
+    def analyze(self):
+
+        file  = self.writeScriptFile()
+        command = "gnome-terminal -x sh -c 'sh %s'" %file
+        process = subprocess.Popen(command, stdin=subprocess.PIPE, shell=True)
+        return process
+
+    def writeScriptFile(self):
+        folder = "/home/gabriel/Materiale/Studiu/Proiecte_personale/Python/project_currency/Trading/"
+
+        index = self.investment.onlineindex
+        initialPrice = self.investment.initialPrice
+        name = self.investment.name
+        file = "ww.sh"
+        path = folder + "watchers/" + file
+
+        scriptFileObject = open(path, 'w')
+
+        scriptFileObject.write("cd %s\n" %folder)
+        scriptFileObject.write("python3.3 analysertest.py %d %d %s\n" %(index, initialPrice,name))
+        scriptFileObject.close()
+
+        return path

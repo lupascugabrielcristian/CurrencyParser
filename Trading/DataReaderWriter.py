@@ -4,8 +4,8 @@ import pickle
 class DataReaderWriter:
 
     def __init__(self):
-        self.portofolioFile = "/home/gabriel/Materiale/Studiu/Proiecte personale/Python/project_currency/Parser/portofolio"
-        self.historyFile = "/home/gabriel/Materiale/Studiu/Proiecte personale/Python/project_currency/Parser/history"
+        self.portofolioFile = "/home/gabriel/Materiale/Studiu/Proiecte_personale/Python/project_currency/Parser/portofolio"
+        self.historyFile = "/home/gabriel/Materiale/Studiu/Proiecte_personale/Python/project_currency/Parser/history"
 
     def getPortofolio(self):
         try:

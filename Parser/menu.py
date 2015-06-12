@@ -31,7 +31,6 @@ def prepareInvestmentManager():
     manager = InvestmentManger(debugflag, portofolio)
     manager.cleanup()
     manager.startWatch()
-    manager.testAnalyzer()
     return manager
 
 answer = 0
