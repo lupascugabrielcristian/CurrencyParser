@@ -20,10 +20,18 @@ def analyze():
     while 1:
         sleep(2)
         value = parser.getOnlineValueForCurrencyIndex(index)
-        print("Current value: " + str(value))
 
         delta = abs(initialPrice - value)
-        if delta > 0.01:
+
+        if value > initialPrice:
+            side = "UP"
+        elif value < initialPrice:
+            side = "DOWN"
+        else: side = "SAME"
+
+        print("Current Val: %.4f, D: %.4f - %s" %(value, delta, side))
+
+        if delta > 0.3:
             print(str(delta)) # log
             print("Delta exceeded")
             sleep(15)

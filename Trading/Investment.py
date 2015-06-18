@@ -1,3 +1,4 @@
+import random
 import time
 from Parser.ValueParser import ValueParser
 
@@ -17,6 +18,7 @@ class Investment:
         self.duration = 0
         self.open = False
         self.profit = 0.0
+        self.id = random.randint(0, 10000)
 
 
     def startTransaction(self):

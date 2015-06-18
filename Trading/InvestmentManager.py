@@ -37,12 +37,13 @@ class InvestmentManger:
         newInvestment.onlineindex = index
         newInvestment.units = ammount
         newInvestment.duration = duration
-        self.investments.append(newInvestment)
-        self.portofolio.addInvestment(newInvestment)
-        print("Investment added") #log
+
 
         self.startTransaction(newInvestment)
-        self.startAnalyser(newInvestment)
+        self.startWatch(newInvestment)
+
+        print("Investment added") #log
+
 
 
     def cleanup(self):
@@ -61,25 +62,29 @@ class InvestmentManger:
 
         DataReaderWriter().savePorofolio(self.portofolio)
 
-
-    def startWatch(self):
-        self.watchersManager.empty()
         for investment in self.portofolio.investments:
-            self.startIfOpen(investment)
+            self.startWatch(investment)
+
+
+    # def startWatch(self):
+    #     self.watchersManager.empty()
+    #     for investment in self.portofolio.investments:
+    #         self.startIfOpen(investment)
 
 
     @staticmethod
     def __findIndexOfCurrency__(currencyName):
         return AllCurrencyList().getIndexOfCurrency(currencyName)
 
-    def runTransation(self, newInvestment):
-        self.startTransaction(newInvestment)
-        time.sleep(newInvestment.duration)
-        self.endTransaction(newInvestment)
+    # def runTransation(self, newInvestment):
+    #     self.startTransaction(newInvestment)
+    #     time.sleep(newInvestment.duration)
+    #     self.endTransaction(newInvestment)
 
 
     def startTransaction(self, investment):
         investment.startTransaction()
+        self.investments.append(investment)
         self.portofolio.addInvestment(investment)
         DataReaderWriter().savePorofolio(self.portofolio)
 
@@ -95,8 +100,7 @@ class InvestmentManger:
 
     def startIfOpen(self, investment):
         if investment.open:
-            process = self.analize(investment)
-            self.watchersManager.addWatch(investment, process)
+            self.watchersManager.addWatch(investment)
 
 
     def closeInvestmentAfter(self, investment, duration):
@@ -104,13 +108,5 @@ class InvestmentManger:
         self.endTransaction(investment)
 
 
-    def startAnalyser(self, newInvestment):
-        print("Starting analyser")
-        self.analize(newInvestment)
-
-
-    def analize(self, investment):
-        process = AnalyzeStarter(self.debugflag, investment).analyze()
-        investment.endTransaction()
-        print("Transaction ended because analyser")
-        return process
+    def startWatch(self, investment):
+        self.watchersManager.addWatch(investment)

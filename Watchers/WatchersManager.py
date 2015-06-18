@@ -1,33 +1,24 @@
-from Watchers.WatchThread import WatchThread
+from Trading.AnalyzeStarter import AnalyzeStarter
 
 
 class WatchersManager:
 
     def __init__(self, debugflag):
-        self.debuflag = debugflag
+        self.debugflag = debugflag
         self.watchers = []
 
-    def addWatch(self, investment, thread):
-        watcher = WatchThread(investment, thread)
+    def addWatch(self, investment):
         if not self.__isInvestmentWatched(investment):
-            self.watchers.append(watcher)
-            watcher.start()
-        else:
-            oldWatcher = self.__getWatcher(investment)
-            if not oldWatcher.isAlive():
-                oldWatcher.start()
+            self.watchers.append(investment)
+            AnalyzeStarter(self.debugflag, investment).analyze()
 
 
     def __isInvestmentWatched(self, investment):
         for watcher in self.watchers:
-            if watcher.investment == investment:
+            if watcher == investment:
                 return True
         return False
 
-    def __getWatcher(self, investment):
-        for watcher in self.watchers:
-            if watcher.investment == investment:
-                return watcher
 
     def empty(self):
         for watcher in self.watchers:

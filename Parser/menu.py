@@ -1,6 +1,6 @@
 import sys
 
-sys.path.extend(['/home/gabriel/Materiale/Studiu/Proiecte personale/Python/project_currency'])
+sys.path.extend(['/home/gabriel/Materiale/Studiu/Proiecte_personale/Python/project_currency'])
 
 from Editors.PortofolioEditor import PortofolioEditor
 from UserInterface.MenuInterface import MenuInterface
@@ -30,7 +30,6 @@ def initializePortofolio():
 def prepareInvestmentManager():
     manager = InvestmentManger(debugflag, portofolio)
     manager.cleanup()
-    manager.startWatch()
     return manager
 
 answer = 0

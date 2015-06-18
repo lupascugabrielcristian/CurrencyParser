@@ -12,18 +12,18 @@ class AnalyzeStarter:
 
     def analyze(self):
 
-        file  = self.writeScriptFile()
+        file  = self.__writeScriptFile()
         command = "gnome-terminal -x sh -c 'sh %s'" %file
         process = subprocess.Popen(command, stdin=subprocess.PIPE, shell=True)
         return process
 
-    def writeScriptFile(self):
+    def __writeScriptFile(self):
         folder = "/home/gabriel/Materiale/Studiu/Proiecte_personale/Python/project_currency/Trading/"
 
         index = self.investment.onlineindex
         initialPrice = self.investment.initialPrice
         name = self.investment.name
-        file = "ww.sh"
+        file = "watch" + str(self.investment.id) + ".sh"
         path = folder + "watchers/" + file
 
         scriptFileObject = open(path, 'w')
