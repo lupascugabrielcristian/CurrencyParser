@@ -6,12 +6,6 @@ index = int(sys.argv[1])
 initialPrice = int(sys.argv[2])
 name = sys.argv[3]
 
-def testProcess():
-    while 1:
-        print("Anlysing ...")
-        sleep(2)
-
-
 def analyze():
     print("Analizing " + name)
     print("Inital value: " + str(initialPrice))

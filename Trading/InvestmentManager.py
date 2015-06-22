@@ -45,7 +45,6 @@ class InvestmentManger:
         print("Investment added") #log
 
 
-
     def cleanup(self):
         for investment in self.portofolio.investments:
             if investment.endTime < int(round(time.time())) and investment.open:
@@ -66,21 +65,9 @@ class InvestmentManger:
             self.startWatch(investment)
 
 
-    # def startWatch(self):
-    #     self.watchersManager.empty()
-    #     for investment in self.portofolio.investments:
-    #         self.startIfOpen(investment)
-
-
     @staticmethod
     def __findIndexOfCurrency__(currencyName):
         return AllCurrencyList().getIndexOfCurrency(currencyName)
-
-    # def runTransation(self, newInvestment):
-    #     self.startTransaction(newInvestment)
-    #     time.sleep(newInvestment.duration)
-    #     self.endTransaction(newInvestment)
-
 
     def startTransaction(self, investment):
         investment.startTransaction()
