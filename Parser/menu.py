@@ -1,4 +1,6 @@
+import os
 import sys
+import subprocess
 
 sys.path.extend(['/home/gabriel/Materiale/Studiu/Proiecte_personale/Python/project_currency'])
 
@@ -8,7 +10,6 @@ from Trading.InvestmentsMonitor import InvestmentMonitor
 from Viewers.HistoryViewer import HistoryViewer
 from Trading.InvestmentManager import InvestmentManger
 from Trading.DataReaderWriter import DataReaderWriter
-from Trading.Money import Money
 from Trading.Portofolio import Portofolio
 from Viewers.PortofolioViewer import PortofolioViewer
 from Parser.VariationFinder import VariationFinder
@@ -21,8 +22,7 @@ def initializePortofolio():
     myPortofolio = reader.getPortofolio()
     if myPortofolio is None:
         myPortofolio = Portofolio()
-        myPortofolio.addMoney("USD", 10000)
-        myPortofolio.addCurrency(Money())
+        myPortofolio.addMoney("EUR", 1000000)
         reader.savePorofolio(myPortofolio)
 
     return myPortofolio
@@ -32,12 +32,18 @@ def prepareInvestmentManager():
     manager.cleanup()
     return manager
 
+
+def cleanFiles():
+    file = "/home/gabriel/Materiale/Studiu/Proiecte_personale/Python/project_currency/Watchers/clean.sh"
+    command = "gnome-terminal -x sh -c 'sh %s'" %file
+    subprocess.Popen(command, stdin=subprocess.PIPE, shell=True)
+
+
 answer = 0
 debugflag = False
 
 portofolio = initializePortofolio()
 investmentManager = prepareInvestmentManager()
-
 
 while answer != 7:
     print("Menu")
@@ -99,5 +105,5 @@ while answer != 7:
     if answer == 11:
         InvestmentMonitor(debugflag, portofolio).monitor()
 
-
+cleanFiles()
 print("By by")

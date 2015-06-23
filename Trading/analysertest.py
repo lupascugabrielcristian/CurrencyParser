@@ -3,7 +3,7 @@ import sys
 from Parser.ValueParser import ValueParser
 
 index = int(sys.argv[1])
-initialPrice = int(sys.argv[2])
+initialPrice = float(sys.argv[2])
 name = sys.argv[3]
 
 def analyze():
@@ -26,9 +26,10 @@ def analyze():
         print("Current Val: %.4f, D: %.4f - %s" %(value, delta, side))
 
         if delta > 0.3:
-            print(str(delta)) # log
-            print("Delta exceeded")
-            sleep(15)
+            print("Diff: " + str(delta)) # log
+            print("Delta exceeded(Max = 0.3)")
+            print("Window will close in 20 seconds")
+            sleep(20)
             return
 
 analyze()

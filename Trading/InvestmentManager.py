@@ -4,7 +4,6 @@ from Parser.AllCurrenciesList import AllCurrencyList
 from Parser.Currency import Currency
 from Parser.OneCurrency import OneCurrency
 from Parser.ValueParser import ValueParser
-from Trading.AnalyzeStarter import AnalyzeStarter
 from Trading.DataReaderWriter import DataReaderWriter
 from Trading.Investment import Investment
 from Watchers.WatchersManager import WatchersManager
@@ -24,10 +23,9 @@ class InvestmentManger:
     def makeInvestment(self):
         currencyName = input("Buy currency: ")
         ammount = int(input("Ammount: "))
-        duration = int(input("(Optional)Seconds: "))
 
         newInvestment = Investment(self.debugflag)
-        newInvestment.name = currencyName
+        newInvestment.setName(currencyName)
         index = self.__findIndexOfCurrency__(currencyName)
 
         if index is None or index < 0:
@@ -36,8 +34,6 @@ class InvestmentManger:
 
         newInvestment.onlineindex = index
         newInvestment.units = ammount
-        newInvestment.duration = duration
-
 
         self.startTransaction(newInvestment)
         self.startWatch(newInvestment)
@@ -56,7 +52,7 @@ class InvestmentManger:
                 toRemove.append(investment)
 
         for investment in toRemove:
-            self.portofolio.investments.remove(investment)
+            self.portofolio.sellInvestment(investment)
             print("Investment sold") #log
 
         DataReaderWriter().savePorofolio(self.portofolio)
@@ -77,7 +73,7 @@ class InvestmentManger:
 
     def endTransaction(self, investment):
         investment.endTransaction()
-        self.portofolio.addCurrency(Currency(investment.name, investment.profit))
+        self.portofolio.sellInvestment(investment)
         DataReaderWriter().savePorofolio(self.portofolio)
 
     def __getOnlineData__(self, duration, currencyName):

@@ -8,6 +8,8 @@ class Investment:
     def __init__(self, debugflag):
         self.parser = ValueParser(debugflag)
         self.name = "default name"
+        self.fromName = "from"
+        self.toName = "to"
         self.onlineindex = 0
         self.investedMoney = 0
         self.units = 0.0
@@ -20,6 +22,12 @@ class Investment:
         self.profit = 0.0
         self.id = random.randint(0, 10000)
 
+
+    def setName(self, currencyName):
+        self.name = currencyName
+        separation = currencyName.index('/')
+        self.fromName = currencyName[:separation]
+        self.toName = currencyName[separation + 1:]
 
     def startTransaction(self):
         self.initialPrice = self.parser.getOnlineValueForCurrencyIndex(self.onlineindex)
