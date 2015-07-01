@@ -10,6 +10,7 @@ class WatchersManager:
     def addWatch(self, investment):
         if not self.__isInvestmentWatched(investment):
             self.watchers.append(investment)
+            print("Starting watch for %s - %s" %(investment.name, investment.open))
             AnalyzeStarter(self.debugflag, investment).analyze()
 
 

@@ -1,4 +1,3 @@
-import os
 import sys
 import subprocess
 
@@ -97,7 +96,7 @@ while answer != 7:
         PortofolioViewer(portofolio).view()
 
     if answer == 12:
-        PortofolioEditor(portofolio, debugflag).edit()
+        PortofolioEditor(portofolio, investmentManager, debugflag).edit()
 
     if answer == 10:
         investmentManager.makeInvestment()

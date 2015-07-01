@@ -16,3 +16,8 @@ class PortofolioViewer:
         print("===========")
         for item in self.portofolio.investments:
             print(item)
+
+        print("Debt:")
+        print("======")
+        for item in self.portofolio.debt:
+            print(item)

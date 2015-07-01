@@ -3,9 +3,10 @@ from Trading.DataReaderWriter import DataReaderWriter
 
 class PortofolioEditor:
 
-    def __init__(self, portofolio, debugflag):
+    def __init__(self, portofolio, investmentManager, debugflag):
         self.debugflag = debugflag
         self.portofolio = portofolio
+        self.investmentManager = investmentManager
         self.exitFlag = False
 
 
@@ -70,8 +71,9 @@ class PortofolioEditor:
     def sellInvestment(self, userinput):
         index = int(userinput[1:])
         try:
-            self.portofolio.investments[index].endTransaction()
-            DataReaderWriter().savePorofolio(self.portofolio)
+            investment = self.portofolio.investments[index]
+            self.investmentManager.closeInvestment(investment)
+
             print("Investment at index " + str(index) + " was sold")
         except IndexError:
             print("Wrong command")

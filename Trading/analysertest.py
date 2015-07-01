@@ -14,8 +14,8 @@ def analyze():
     while 1:
         sleep(2)
         value = parser.getOnlineValueForCurrencyIndex(index)
-
-        delta = abs(initialPrice - value)
+        diff = initialPrice - value
+        delta = abs(diff)
 
         if value > initialPrice:
             side = "UP"
@@ -23,7 +23,7 @@ def analyze():
             side = "DOWN"
         else: side = "SAME"
 
-        print("Current Val: %.4f, D: %.4f - %s" %(value, delta, side))
+        print("Current Val: %.4f, D: %.4f - %s" %(value, diff, side))
 
         if delta > 0.3:
             print("Diff: " + str(delta)) # log

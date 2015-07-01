@@ -1,7 +1,6 @@
 import time
 
 from Parser.AllCurrenciesList import AllCurrencyList
-from Parser.Currency import Currency
 from Parser.OneCurrency import OneCurrency
 from Parser.ValueParser import ValueParser
 from Trading.DataReaderWriter import DataReaderWriter
@@ -42,9 +41,6 @@ class InvestmentManger:
 
 
     def cleanup(self):
-        for investment in self.portofolio.investments:
-            if investment.endTime < int(round(time.time())) and investment.open:
-                self.endTransaction(investment)
 
         toRemove = []
         for investment in self.portofolio.investments:
@@ -53,7 +49,6 @@ class InvestmentManger:
 
         for investment in toRemove:
             self.portofolio.sellInvestment(investment)
-            print("Investment sold") #log
 
         DataReaderWriter().savePorofolio(self.portofolio)
 
@@ -90,6 +85,8 @@ class InvestmentManger:
         time.sleep(duration)
         self.endTransaction(investment)
 
+    def closeInvestment(self, investment):
+        self.endTransaction(investment)
 
     def startWatch(self, investment):
         self.watchersManager.addWatch(investment)
