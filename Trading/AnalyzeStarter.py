@@ -30,6 +30,7 @@ class AnalyzeStarter:
 
         scriptFileObject.write("cd %s\n" %folder)
         scriptFileObject.write("python3.3 analysertest.py %d %.4f %s\n" %(index, initialPrice,name))
+        scriptFileObject.write("clac")
         scriptFileObject.close()
 
         return path

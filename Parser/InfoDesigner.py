@@ -41,8 +41,7 @@ class InfoDesigner:
 
 
     def saveToFile(self, points):
-        outputFile = open("/home/gabriel/Materiale/Studiu/Proiecte personale/Python/project_currency/Parser/history", 'ab')
-
+        outputFile = open("/home/gabriel/Materiale/Studiu/Proiecte_personale/Python/project_currency/Parser/history", 'ab')
         timespan = self.interval * self.repeats
 
         historyobject = HistoryObject(self.currency_name, points)

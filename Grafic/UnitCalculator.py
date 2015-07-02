@@ -20,6 +20,10 @@ class UnitCalculator:
         # Numar unitati
         if len(self.listOfPoints) > 1:
             N = maxValue - minYValue
+
+            if N == 0:
+                N = 1
+
             while N < self.PRECISION:
                 dimensions.yFactor +=1
                 N *= 10
