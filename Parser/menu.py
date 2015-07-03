@@ -1,8 +1,8 @@
 import sys
-import subprocess
 
 sys.path.extend(['/home/gabriel/Materiale/Studiu/Proiecte_personale/Python/project_currency'])
 
+import subprocess
 from Editors.PortofolioEditor import PortofolioEditor
 from UserInterface.MenuInterface import MenuInterface
 from Trading.InvestmentsMonitor import InvestmentMonitor

@@ -39,17 +39,6 @@ class Investment:
     def endTransaction(self):
         self.endPrice = self.parser.getOnlineValueForCurrencyIndex(self.onlineindex)
         self.open = False
-        self.calculateProfit()
-
-    def calculateProfit(self):
-        delta = self.endPrice - self.initialPrice
-        profit = delta * self.units * 1000
-        self.profit = round(profit, 2)
-        print("\n==========================") # log
-        print("||Profit: " + str(self.profit))
-        print("||Initial price: " + str(self.initialPrice))
-        print("||Final price: " + str(self.endPrice))
-        print("==========================") # log
 
     def getRemainingDuration(self):
         return self.endTime - int(round(time.time()))

@@ -1,13 +1,10 @@
-import time
-
-
 class Predicter:
 
     def __init__(self, debugflag, initialPice, readingInterval):
         self.debugflag = debugflag
         self.valuesSoFar = []
         self.initialPrice = initialPice
-        self.lastGoodReadTime = None
+        self.notDecisiveReadings = 0
         self.readingInterval = readingInterval
 
 
@@ -21,7 +18,7 @@ class Predicter:
 
         if newValue < minValue:
             self.valuesSoFar.append(newValue)
-            self.lastGoodReadTime = time.time()
+            self.notDecisiveReadings = 0
             print(" ** Min Value found: %.4f"%newValue)
 
             if newValue < self.initialPrice:
@@ -30,9 +27,9 @@ class Predicter:
             print("  * Reached bottom: %.4f"%newValue)
         else:
             self.valuesSoFar.append(newValue)
-            if not self.lastGoodReadTime is None:
-                self.__calculateGoodReadinngsDensity()
+            self.notDecisiveReadings += 1
 
+        self.__calculateGoodReadinngsDensity()
         return self.readingInterval
 
 
@@ -49,10 +46,14 @@ class Predicter:
                 break
 
     def __calculateGoodReadinngsDensity(self):
-        timeNow = time.time()
-        timeDifference = (timeNow - self.lastGoodReadTime)
+        if self.notDecisiveReadings > 10:
+            self.notDecisiveReadings = 0
+            self.readingInterval += 10
+            print(" ++ Reading interval increased to %d seconds"%self.readingInterval)
 
-        distribution = timeDifference / self.readingInterval
-        if distribution > 10:
-            self.readingInterval += 2
-            print("Reading interval increased!!")
+
+    def calculateAverage(self):
+        sum  = 0
+        for x in self.valuesSoFar:
+            sum += x
+        return sum / len(self.valuesSoFar)

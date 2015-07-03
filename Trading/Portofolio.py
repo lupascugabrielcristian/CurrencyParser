@@ -1,3 +1,4 @@
+from math import ceil
 from Trading.Money import Money
 
 
@@ -57,7 +58,7 @@ class Portofolio:
         return -1
 
     def __buyCurrency(self, investment):
-        cost = investment.units * investment.initialPrice
+        cost = ceil(investment.units * investment.initialPrice * 10) / 10
         self.__removeCurrency(investment.units, investment.fromName)
         self.__addCurrency(cost, investment.toName)
         print("Vandut %d %s; Am cumparat %d %s" %(investment.units, investment.fromName, cost, investment.toName) )

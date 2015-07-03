@@ -57,7 +57,7 @@ class HistoryViewer:
 
 
     def deleteOne(self):
-        historyFile = open("/home/gabriel/Materiale/Studiu/Proiecte personale/Python/project_currency/Parser/history", 'rb')
+        historyFile = open("/home/gabriel/Materiale/Studiu/Proiecte_personale/Python/project_currency/Parser/history", 'rb')
         self.historyObjects.clear()
 
         try:
@@ -78,7 +78,7 @@ class HistoryViewer:
         indexChosen = int(input("Alege una: "))
         self.historyObjects.pop(indexChosen)
 
-        outputFile = open("/home/gabriel/Materiale/Studiu/Proiecte personale/Python/project_currency/Parser/history", 'wb')
+        outputFile = open("/home/gabriel/Materiale/Studiu/Proiecte_personale/Python/project_currency/Parser/history", 'wb')
 
         for historyobject in self.historyObjects:
             pickle.dump(historyobject, outputFile)

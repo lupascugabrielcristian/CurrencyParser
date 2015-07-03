@@ -1,5 +1,8 @@
-from time import sleep
 import sys
+
+sys.path.extend(['/home/gabriel/Materiale/Studiu/Proiecte_personale/Python/project_currency'])
+
+from time import sleep
 from Analysers.Predicter import Predicter
 from Parser.ValueParser import ValueParser
 
@@ -11,7 +14,7 @@ readingInterval = 2.0
 
 def analyze():
     global readingInterval
-    print("Analizing " + name)
+    print("Analizing %s. Index %d"%(name, index))
     print("Inital value: " + str(initialPrice))
     parser = ValueParser(False)
     predicter = Predicter(False, initialPrice, readingInterval)
