@@ -99,7 +99,7 @@ while answer != 7:
         PortofolioEditor(portofolio, investmentManager, debugflag).edit()
 
     if answer == 10:
-        investmentManager.makeInvestment()
+        investmentManager.makeInvestment("auto")
 
     if answer == 11:
         InvestmentMonitor(debugflag, portofolio).monitor()

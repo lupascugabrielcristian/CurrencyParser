@@ -5,6 +5,7 @@ from Parser.OneCurrency import OneCurrency
 from Parser.ValueParser import ValueParser
 from Trading.DataReaderWriter import DataReaderWriter
 from Trading.Investment import Investment
+from Trading.SelfOperatedInvestment import SelfOperatedInvestment
 from Watchers.WatchersManager import WatchersManager
 
 
@@ -19,7 +20,15 @@ class InvestmentManger:
         self.parser = ValueParser(debugflag)
         self.watchersManager = WatchersManager(debugflag)
 
-    def makeInvestment(self):
+    def makeInvestment(self, type):
+        if "normal" in type:
+            self.__makeNormalInvestment()
+
+        if "auto" in type:
+            self.__makeSelfOperatedInvestment()
+
+
+    def __makeNormalInvestment(self):
         currencyName = input("Buy currency: ")
         ammount = int(input("Ammount: "))
 
@@ -39,6 +48,25 @@ class InvestmentManger:
 
         print("Investment added") #log
 
+
+    def __makeSelfOperatedInvestment(self):
+        currencyName = input("Currency: ")
+        ammount = int(input("Ammount: "))
+
+        newInvestment = SelfOperatedInvestment(self.debugflag)
+        newInvestment.setName(currencyName)
+        index = self.__findIndexOfCurrency__(currencyName)
+
+        if index is None or index < 0:
+            print("Currency was not found")
+            return
+
+        newInvestment.onlineindex = index
+        newInvestment.units = ammount
+
+        self.startWatch(newInvestment)
+
+        return 0
 
     def cleanup(self):
 

@@ -1,4 +1,5 @@
 from Trading.AnalyzeStarter import AnalyzeStarter
+from Trading.SelfOperatedInvestment import SelfOperatedInvestment
 
 
 class WatchersManager:
@@ -8,10 +9,16 @@ class WatchersManager:
         self.watchers = []
 
     def addWatch(self, investment):
-        if not self.__isInvestmentWatched(investment):
-            self.watchers.append(investment)
-            print("Starting watch for %s - %s" %(investment.name, investment.open))
+        if isinstance(investment, SelfOperatedInvestment):
+            print("Starting watch for %s" %investment.name)
             AnalyzeStarter(self.debugflag, investment).analyze()
+
+        else:
+            if not self.__isInvestmentWatched(investment):
+                self.watchers.append(investment)
+                print("Starting watch for %s - %s" %(investment.name, investment.open))
+                AnalyzeStarter(self.debugflag, investment).analyze()
+
 
 
     def __isInvestmentWatched(self, investment):

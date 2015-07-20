@@ -1,17 +1,24 @@
+from events import Events
+
 class Predicter:
 
-    def __init__(self, debugflag, initialPice, readingInterval):
+    def __init__(self, debugflag, readingInterval, initialPice=0):
         self.debugflag = debugflag
         self.valuesSoFar = []
         self.initialPrice = initialPice
         self.notDecisiveReadings = 0
         self.readingInterval = readingInterval
+        self.sellEvents = Events()
+        self.buyEvents = Events()
 
 
     def addData(self, newValue):
+        log = [0, ""]
+        log[0] = self.readingInterval
+
         if len(self.valuesSoFar) == 0:
             self.valuesSoFar.append(newValue)
-            return self.readingInterval
+            return log
 
         self.__bubble_sort()
         minValue = self.valuesSoFar[0]
@@ -19,18 +26,21 @@ class Predicter:
         if newValue < minValue:
             self.valuesSoFar.append(newValue)
             self.notDecisiveReadings = 0
-            print(" ** Min Value found: %.4f"%newValue)
+            log[1]  = " ** Min Value found: %.4f"%newValue
 
             if newValue < self.initialPrice:
-                print("  *** Lower than bying price. Suggest SELL. IP: %.4f"%self.initialPrice)
+                log[1] = "  *** Lower than bying price. Suggest SELL. IP: %.4f"%self.initialPrice
+
         elif newValue == minValue:
-            print("  * Reached bottom: %.4f"%newValue)
+            self.sellEvents.on_change()
+            log[1] = "  * Reached bottom: %.4f"%newValue
         else:
             self.valuesSoFar.append(newValue)
             self.notDecisiveReadings += 1
 
         self.__calculateGoodReadinngsDensity()
-        return self.readingInterval
+        log[0] =  self.readingInterval
+        return log
 
 
     def __bubble_sort(self):
@@ -57,3 +67,5 @@ class Predicter:
         for x in self.valuesSoFar:
             sum += x
         return sum / len(self.valuesSoFar)
+
+

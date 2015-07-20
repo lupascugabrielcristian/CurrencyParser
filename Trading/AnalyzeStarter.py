@@ -11,8 +11,10 @@ class AnalyzeStarter:
         self.parser = ValueParser(debugflag)
 
     def analyze(self):
+        if "auto" in self.investment.type:
+            file = self.__writeScriptFileForAuto()
+        else: file  = self.__writeScriptFile()
 
-        file  = self.__writeScriptFile()
         command = "gnome-terminal -x sh -c 'sh %s'" %file
         process = subprocess.Popen(command, stdin=subprocess.PIPE, shell=True)
         return process
@@ -30,6 +32,22 @@ class AnalyzeStarter:
 
         scriptFileObject.write("cd %s\n" %folder)
         scriptFileObject.write("python3.3 analysertest.py %d %.4f %s\n" %(index, initialPrice,name))
+        scriptFileObject.close()
+
+        return path
+
+    def __writeScriptFileForAuto(self):
+        folder = "/home/gabriel/Materiale/Studiu/Proiecte_personale/Python/project_currency/Trading/"
+
+        index = self.investment.onlineindex
+        name = self.investment.name
+        file = "watch" + str(self.investment.id) + ".sh"
+        path = folder + "watchers/" + file
+
+        scriptFileObject = open(path, 'w')
+
+        scriptFileObject.write("cd %s\n" %folder)
+        scriptFileObject.write("python3.3 automatedInvestment.py %d %s\n" %(index, name))
         scriptFileObject.write("clac")
         scriptFileObject.close()
 

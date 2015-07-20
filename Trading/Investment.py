@@ -21,6 +21,7 @@ class Investment:
         self.open = False
         self.profit = 0.0
         self.id = random.randint(0, 10000)
+        self.type = "manual"
 
 
     def setName(self, currencyName):
