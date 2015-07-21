@@ -14,10 +14,11 @@ class AutoGraphic:
         Give the number of positive units on X, number of positive units on Y and the unit size
         """
         self.dimensions = None
-        self.canvas = tkinter.Canvas()
+        self.canvas = None
         self.createAutoSizeGraphic(points)
 
     def createAutoSizeGraphic(self, listOfPoints):
+        self.canvas = tkinter.Canvas()
         if len(listOfPoints) == 0 or listOfPoints is None:
             return
 

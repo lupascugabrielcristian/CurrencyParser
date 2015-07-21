@@ -13,3 +13,11 @@ class GraphicPointsBuilder:
             graphicPoints.append(GraphicPoint(increment, currency.value))
             increment += 1
         return graphicPoints
+
+    def builFromValue(self, listOfValues):
+        graphicPoints = []
+        increment = self.increment
+        for value in listOfValues:
+            graphicPoints.append(GraphicPoint(increment, value))
+            increment += 1
+        return graphicPoints
