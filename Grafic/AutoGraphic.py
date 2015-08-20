@@ -1,4 +1,5 @@
 import tkinter
+from tkinter import Frame
 
 from Grafic.AutoConvas import AutoCanvasCalculator
 from Grafic.CadranCalculator import CadranCalculator
@@ -7,18 +8,21 @@ from Grafic.UnitCalculator import UnitCalculator
 from Grafic.ValuesMarker import ValuesMarker
 
 
-class AutoGraphic:
+class AutoGraphic(Frame):
 
-    def __init__(self, points):
+    def __init__(self, points, master=None):
+        Frame.__init__(self, master)
         """
         Give the number of positive units on X, number of positive units on Y and the unit size
         """
         self.dimensions = None
-        self.canvas = None
+        self.canvas = tkinter.Canvas()
         self.createAutoSizeGraphic(points)
 
+
     def createAutoSizeGraphic(self, listOfPoints):
-        self.canvas = tkinter.Canvas()
+        canvas = self.canvas
+
         if len(listOfPoints) == 0 or listOfPoints is None:
             return
 
@@ -26,12 +30,11 @@ class AutoGraphic:
         dimensions = CadranCalculator(dimensions).calculate()
         dimensions = UnitCalculator(dimensions, listOfPoints).calculateYUnitSize()
 
-        canvas = self.canvas
         self.dimensions = dimensions
 
         # Adjust canvas
-        self.canvas["width"] = dimensions.xCanvasSize
-        self.canvas["height"] = dimensions.yCanvasSize
+        canvas["width"] = dimensions.xCanvasSize
+        canvas["height"] = dimensions.yCanvasSize
 
         # Create cadran
         canvas.create_line(dimensions.horizontalLine[0], dimensions.horizontalLine[1],dimensions.horizontalLine[2],dimensions.horizontalLine[3])
@@ -41,9 +44,4 @@ class AutoGraphic:
 
         GridMaker(dimensions, canvas).makeGrid()
 
-        self.canvas.pack(fill=tkinter.BOTH)
-        self.window.mainloop()
-
-
-    canvas = None
-    window = tkinter.Tk()
+        canvas.pack(fill=tkinter.BOTH)

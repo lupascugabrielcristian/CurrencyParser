@@ -38,8 +38,8 @@ def analyse():
         value = parser.getOnlineValueForCurrencyIndex(index)
         timeInterval = time.time() - beginingOfTime
         predicterResult = predicter.addData(value, timeInterval)
-        interval = printDetails(value, predicterResult)
-        sleep(interval)
+        printDetails(value, predicterResult)
+        sleep(predicterResult.readingInterval)
 
 def printHeader():
     print("Time\t\tValue\t\tDerivata\t\tOperation\tTendency\tComment")
@@ -55,7 +55,6 @@ def printDetails(value, predicterResult):
         operation = "\t\t---"
 
     print(str(currentTime) + '\t' + str(value) + derivata + operation + tendency + comment)
-    return predicterResult.readingInterval
 
 
 analyse()

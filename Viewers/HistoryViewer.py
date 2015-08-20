@@ -1,5 +1,5 @@
 import pickle
-from Grafic.AutoSizeGraphic import AutoGraphic
+from Grafic.AutoGraphic import AutoGraphic
 
 
 class HistoryViewer:

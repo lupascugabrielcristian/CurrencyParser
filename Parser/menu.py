@@ -1,4 +1,6 @@
 import sys
+from Database.DataStore import DataStore
+from Parser.BitcoinParser import BitcoinParser
 
 sys.path.extend(['/home/gabriel/Materiale/Studiu/Proiecte_personale/Python/project_currency'])
 
@@ -57,6 +59,8 @@ while answer != 7:
     print("10. Make an investment")
     print("11. Monitor")
     print("13. Test terminal")
+    print("14. BitCoin")
+    print("15. View Bitcoin values")
     print("5. Debug ON")
     print("6. Debug OFF")
     print("7. Exit")
@@ -103,6 +107,12 @@ while answer != 7:
 
     if answer == 11:
         InvestmentMonitor(debugflag, portofolio).monitor()
+
+    if answer == 14:
+        BitcoinParser().getPrice()
+
+    if answer == 15:
+        DataStore().showData()
 
 cleanFiles()
 print("By by")

@@ -1,6 +1,6 @@
 import sched
 import time
-from Grafic.AutoSizeGraphic import AutoGraphic
+from Grafic.AutoGraphic import AutoGraphic
 from Parser.GraphicPointsBuilder import GraphicPointsBuilder
 from Parser.HistoryObject import HistoryObject
 from Parser.Method_2_Parser import Method_2_Parser

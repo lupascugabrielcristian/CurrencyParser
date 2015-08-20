@@ -1,10 +1,8 @@
-import random
+import subprocess
 
 from events import Events
 
 from Analysers.PredicterResult import PredicterResult
-from Grafic.AutoSizeGraphic import AutoGraphic
-from Parser.GraphicPointsBuilder import GraphicPointsBuilder
 from Utils.OrderedReadingsArray import OrderedReadingsArray
 
 
@@ -32,6 +30,7 @@ class Predicter:
 
         if self.valuesSoFar.size() == 0:
             self.valuesSoFar.add(newValue, timeInterval)
+            self.startGraphic()
             return result
 
         self.checkTendency(newValue)
@@ -46,7 +45,7 @@ class Predicter:
         result.readingInterval =  self.readingInterval
         result.tendency = self.tendency
 
-        # self.showGraphic()
+        self.outputData()
 
         return result
 
@@ -111,11 +110,38 @@ class Predicter:
 
         if abs(result.lastDerivative) < minimumDer and result.lastDerivative < 0:
             result.operation = PredicterResult.OPERATION_BUY
-            self.showGraphic()
         elif abs(result.lastDerivative) < minimumDer and result.lastDerivative > 0:
             result.operation = PredicterResult.OPERATION_SELL
-            self.showGraphic()
 
-    def showGraphic(self):
-        points = GraphicPointsBuilder(None).builFromValue(self.valuesSoFar.unOrderedReadings)
-        AutoGraphic(points)
+    def outputData(self):
+        folder = "/home/gabriel/Materiale/Studiu/Proiecte_personale/Python/project_currency/Trading/"
+        file = "values" + ".num"
+        path = folder + "graphic/" + file
+        scriptFileObject = open(path, 'w')
+
+        for value in self.valuesSoFar.readings:
+            scriptFileObject.write("%.4f\n"%value)
+
+
+    def startGraphic(self):
+        scriptfile = self.__writeScriptFileForGraphic()
+        command = "gnome-terminal -x sh -c 'sh %s'" %scriptfile
+        subprocess.Popen(command, stdin=subprocess.PIPE, shell=True)
+
+
+    def __writeScriptFileForGraphic(self):
+        folder = "/home/gabriel/Materiale/Studiu/Proiecte_personale/Python/project_currency/Trading/"
+        pythonFileFolder = "/home/gabriel/Materiale/Studiu/Proiecte_personale/Python/project_currency/Utils/"
+
+        file = "graph" + ".sh"
+        path = folder + "graphic/" + file
+
+        scriptFileObject = open(path, 'w')
+
+        scriptFileObject.write("cd %s\n" %pythonFileFolder)
+        scriptFileObject.write("python3.3 GraphicBuilder.py\n")
+        scriptFileObject.write("clac")
+        scriptFileObject.close()
+
+        return path
+
