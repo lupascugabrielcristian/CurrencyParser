@@ -5,7 +5,7 @@ class Money:
         self.sum = ammount
 
     def __repr__(self):
-        return "{} Value = {}".format(self.name, self.sum)
+        return "{} of {}".format(self.sum, self.name)
 
     def __str__(self):
-        return "{} Value = {}".format(self.name, self.sum)
+        return "{} of {}".format(self.sum, self.name)

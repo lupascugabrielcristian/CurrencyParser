@@ -2,7 +2,7 @@ from bs4 import BeautifulSoup
 import urllib3
 
 from Grafic.GraphicPoint import GraphicPoint
-from Parser.Currency import Currency
+from Trading.Currency import Currency
 
 
 class Method_1_Parser:

@@ -1,10 +1,11 @@
 import sched
 import time
+import pickle
+
 from Grafic.AutoGraphic import AutoGraphic
-from Parser.GraphicPointsBuilder import GraphicPointsBuilder
+from Grafic.GraphicPointsBuilder import GraphicPointsBuilder
 from Parser.HistoryObject import HistoryObject
 from Parser.Method_2_Parser import Method_2_Parser
-import pickle
 
 
 class InfoDesigner:

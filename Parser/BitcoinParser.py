@@ -37,6 +37,9 @@ class BitcoinParser:
 		currentvalue = self.findPrice()[1]
 		result = DataStore().addToDataBase(currentvalue)
 
-		print(result.inserted_id)
+		if result is not None:
+			print("Value added " + currentvalue)
+		else:
+			print("Cannot add value to database")
 
 		return currentvalue

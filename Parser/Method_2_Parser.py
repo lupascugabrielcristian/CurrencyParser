@@ -1,7 +1,7 @@
 from bs4 import BeautifulSoup
 import requests
 
-from Parser.Currency import Currency
+from Trading.Currency import Currency
 
 
 class Method_2_Parser:

@@ -1,10 +1,10 @@
 import sys
-from tkinter import Tk
 
 sys.path.extend(['/home/gabriel/Materiale/Studiu/Proiecte_personale/Python/project_currency'])
 
+from tkinter import Tk
 from Grafic.AutoGraphic import AutoGraphic
-from Parser.GraphicPointsBuilder import GraphicPointsBuilder
+from Grafic.GraphicPointsBuilder import GraphicPointsBuilder
 
 
 def buildGraphic():

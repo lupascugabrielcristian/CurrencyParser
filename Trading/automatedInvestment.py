@@ -5,7 +5,7 @@ sys.path.extend(['/home/gabriel/Materiale/Studiu/Proiecte_personale/Python/proje
 from Analysers.PredicterResult import PredicterResult
 from Analysers.Predicter import Predicter
 from time import sleep, gmtime, strftime
-from Parser.Currency import Currency
+from Trading.Currency import Currency
 from Parser.ValueParser import ValueParser
 import time
 
